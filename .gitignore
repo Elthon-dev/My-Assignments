@@ -1,0 +1,37 @@
+# Gradle
+.gradle/
+build/
+app/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration
+local.properties
+*.iml
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+
+# Gradle daemon
+.gradle/
+
+# Caches
+.caches/
+build-cache/
+
+# Android Studio
+*.iws
+*.ipr
+*.idea/
+*.iml
+
+# Keystores
+*.jks
+*.keystore
+keystore.properties

@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <!-- The 3D Flippable Card Container -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp"
+        app:cardMaxElevation="10dp"
+        app:cardBackgroundColor="@color/white">
+
+        <!-- ================= CARD FRONT: OVERVIEW ================= -->
+        <LinearLayout
+            android:id="@+id/layoutCardFront"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_nordic_card"
+            android:visibility="visible">
+
+            <!-- Subject Accent Banner / Top Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="10dp">
+
+                <!-- Subject Pill -->
+                <TextView
+                    android:id="@+id/tvSubjectTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Philosophy"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_chip_pill"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="5dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.04" />
+
+                <!-- Priority Chip -->
+                <TextView
+                    android:id="@+id/tvPriorityBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="HIGH"
+                    android:textColor="#C86452"
+                    android:background="@drawable/bg_chip_pill"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:textStyle="bold"
+                    android:textSize="11sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <!-- Status Checkmark / Button -->
+                <TextView
+                    android:id="@+id/tvStatusBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IN PROGRESS"
+                    android:textColor="#52796F"
+                    android:background="@drawable/bg_chip_pill"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <!-- More Options Menu -->
+                <ImageView
+                    android:id="@+id/btnCardOptions"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="6dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_more"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="More Options" />
+            </LinearLayout>
+
+            <!-- Card Content Scrollable Body -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true"
+                android:paddingHorizontal="20dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Title -->
+                    <TextView
+                        android:id="@+id/tvAssignmentTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Nordic Ethics &amp; Well-being Essay"
+                        android:textColor="#1B262C"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="3dp" />
+
+                    <!-- Due Date Chip & Metrics Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="12dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="#6C7A89"
+                            android:contentDescription="Due Date" />
+
+                        <TextView
+                            android:id="@+id/tvDueDateText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="Due in 2 days"
+                            android:textColor="#2F3E46"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  •  "
+                            android:textColor="#CAD2C5" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_clock"
+                            app:tint="#6C7A89"
+                            android:contentDescription="Estimated time" />
+
+                        <TextView
+                            android:id="@+id/tvEstimatedTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="3.5 hrs"
+                            android:textColor="#6C7A89"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  •  "
+                            android:textColor="#CAD2C5" />
+
+                        <TextView
+                            android:id="@+id/tvGradeWeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25% of Grade"
+                            android:textColor="#6C7A89"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <!-- Focus Study Tracker Banner -->
+                    <LinearLayout
+                        android:id="@+id/layoutFocusBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_chip_pill"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="14dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_focus_zen"
+                            app:tint="#52796F"
+                            android:contentDescription="Focus" />
+
+                        <TextView
+                            android:id="@+id/tvFocusTimeSpent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:text="50 mins focused study"
+                            android:textColor="#2F3E46"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Zen Focus"
+                            android:textColor="#52796F"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Milestones Progress Bar & Indicator -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Milestones &amp; Sub-tasks"
+                                android:textColor="#2F3E46"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvTaskProgressRatio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2 / 4 (50%)"
+                                android:textColor="#52796F"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/pbTaskProgress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="6dp"
+                            android:max="100"
+                            android:progress="50"
+                            android:progressDrawable="@drawable/bg_progress_bar" />
+                    </LinearLayout>
+
+                    <!-- Notes Preview Box -->
+                    <LinearLayout
+                        android:id="@+id/layoutNotesPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_notepad_paper"
+                        android:padding="14dp"
+                        android:layout_marginTop="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_notes"
+                                app:tint="#2F3E46"
+                                android:contentDescription="Notepad" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="6dp"
+                                android:text="Notepad Scratchpad"
+                                android:textColor="#2F3E46"
+                                android:textStyle="bold"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tap to flip ↷"
+                                android:textColor="#6C7A89"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvNotesPreview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Tap 'Flip to Notepad' to view lecture notes, formulas, and checklist items."
+                            android:textColor="#52606D"
+                            android:textSize="13sp"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:lineSpacingExtra="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Bottom Action Buttons: Flip to Notes & Focus Sprint -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
+                android:background="#F8FAF9">
+
+                <!-- Flip to Notes Button -->
+                <LinearLayout
+                    android:id="@+id/btnFlipToBack"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_nordic_primary"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_flip"
+                        app:tint="@color/white"
+                        android:contentDescription="Flip" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Flip to Notes"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- Zen Focus Button -->
+                <LinearLayout
+                    android:id="@+id/btnZenFocusMode"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_button_zen"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_focus_zen"
+                        app:tint="@color/white"
+                        android:contentDescription="Zen Focus" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Zen Focus"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ================= CARD BACK: THE NOTE TAKING PAD ================= -->
+        <LinearLayout
+            android:id="@+id/layoutCardBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_nordic_card_back"
+            android:visibility="gone">
+
+            <!-- Back Header Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:background="#EFF3F1">
+
+                <!-- Flip Back Button -->
+                <LinearLayout
+                    android:id="@+id/btnFlipToFront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_chip_pill"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_flip"
+                        app:tint="#2F3E46"
+                        android:contentDescription="Flip back" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="Overview"
+                        android:textColor="#2F3E46"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvBackSubjectTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="Note Taking Pad"
+                    android:textColor="#2F3E46"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
+
+                <!-- Copy / Share Notes -->
+                <ImageView
+                    android:id="@+id/btnCopyNotes"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_share"
+                    app:tint="#2F3E46"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Share notes" />
+
+                <!-- Save Notes Checkmark -->
+                <ImageView
+                    android:id="@+id/btnSaveNotes"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check"
+                    app:tint="#52796F"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Save Notes" />
+            </LinearLayout>
+
+            <!-- Scrollable Notepad & Checklist Area -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="12dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Ruled Note Pad Area -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NORDIC NOTE PAD"
+                        android:textColor="#52796F"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
+                        android:letterSpacing="0.08" />
+
+                    <EditText
+                        android:id="@+id/etAssignmentNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minLines="6"
+                        android:maxLines="14"
+                        android:layout_marginTop="6dp"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_notepad_paper"
+                        android:gravity="top|start"
+                        android:hint="Jot down assignment notes, research points, formula references, or professor tips here..."
+                        android:textColor="#1B262C"
+                        android:textColorHint="#94A3B8"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="4dp" />
+
+                    <!-- Checklist Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="CHECKLIST &amp; MILESTONES"
+                            android:textColor="#52796F"
+                            android:textStyle="bold"
+                            android:textSize="11sp"
+                            android:letterSpacing="0.08" />
+                    </LinearLayout>
+
+                    <!-- Add new checklist item row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+
+                        <EditText
+                            android:id="@+id/etNewSubTask"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_notepad_paper"
+                            android:hint="+ Add sub-task or milestone..."
+                            android:textColorHint="#94A3B8"
+                            android:textColor="#2F3E46"
+                            android:textSize="13sp"
+                            android:paddingHorizontal="10dp"
+                            android:singleLine="true" />
+
+                        <ImageView
+                            android:id="@+id/btnAddSubTask"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_button_zen"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_add"
+                            app:tint="@color/white"
+                            android:contentDescription="Add sub task" />
+                    </LinearLayout>
+
+                    <!-- Subtasks List Container -->
+                    <LinearLayout
+                        android:id="@+id/layoutSubTasksContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp" />
+
+                    <!-- Padding space -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Bottom Quick Actions for Note Pad -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:background="#EFF3F1">
+
+                <TextView
+                    android:id="@+id/btnQuickFocusFromNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@drawable/bg_button_zen"
+                    android:gravity="center"
+                    android:text="🌿 Focus On This Assignment"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_nordic_card"
+    android:padding="20dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Assignment Card"
+            android:textColor="#1B262C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Add to your Nordic flipcard pad"
+            android:textColor="#6C7A89"
+            android:textSize="12sp" />
+
+        <!-- Assignment Title Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ASSIGNMENT TITLE"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <EditText
+            android:id="@+id/etDialogAssignmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_notepad_paper"
+            android:hint="e.g. History Comparative Thesis"
+            android:paddingHorizontal="12dp"
+            android:textColor="#1B262C"
+            android:textColorHint="#94A3B8"
+            android:textSize="14sp"
+            android:singleLine="true" />
+
+        <!-- Subject Input & Quick Suggestions -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="SUBJECT / COURSE"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <EditText
+            android:id="@+id/etDialogSubject"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_notepad_paper"
+            android:hint="e.g. Mathematics, Literature, Biology..."
+            android:paddingHorizontal="12dp"
+            android:textColor="#1B262C"
+            android:textColorHint="#94A3B8"
+            android:textSize="14sp"
+            android:singleLine="true" />
+
+        <!-- Due Date Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="DUE DATE"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <LinearLayout
+            android:id="@+id/btnPickDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_notepad_paper"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="#52796F"
+                android:contentDescription="Calendar" />
+
+            <TextView
+                android:id="@+id/tvPickedDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Select deadline date"
+                android:textColor="#2F3E46"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Priority Selector -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="PRIORITY LEVEL"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <TextView
+                android:id="@+id/chipPriorityHigh"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_chip_filter_unselected"
+                android:gravity="center"
+                android:text="High"
+                android:textColor="#C86452"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chipPriorityMed"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_selected"
+                android:gravity="center"
+                android:text="Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chipPriorityLow"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_filter_unselected"
+                android:gravity="center"
+                android:text="Low"
+                android:textColor="#52796F"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Estimated Hours & Grade Weight Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EST. HOURS"
+                    android:textColor="#52796F"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.06" />
+
+                <EditText
+                    android:id="@+id/etDialogEstimatedHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_notepad_paper"
+                    android:hint="e.g. 2.5"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="#1B262C"
+                    android:textColorHint="#94A3B8"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GRADE WEIGHT (%)"
+                    android:textColor="#52796F"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.06" />
+
+                <EditText
+                    android:id="@+id/etDialogGradeWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_notepad_paper"
+                    android:hint="e.g. 20"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="#1B262C"
+                    android:textColorHint="#94A3B8"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Initial Notes & Scratchpad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="INITIAL NOTES / SCRATCHPAD"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <EditText
+            android:id="@+id/etDialogNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="3"
+            android:maxLines="6"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_notepad_paper"
+            android:gravity="top|start"
+            android:hint="Key pointers, reading chapters, or formulas..."
+            android:padding="12dp"
+            android:textColor="#1B262C"
+            android:textColorHint="#94A3B8"
+            android:textSize="13sp" />
+
+        <!-- Nordic Color Selection Palette -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="NORDIC PALETTE TINT"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+
+        <LinearLayout
+            android:id="@+id/layoutColorPicker"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="6dp" />
+
+        <!-- Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/btnCancelDialog"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_button_nordic_outline"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="#6C7A89"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/btnSaveDialogAssignment"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_button_nordic_primary"
+                android:gravity="center"
+                android:text="Save Card"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

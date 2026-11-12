@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nordic_bg">#F4F6F4</color>
+    <color name="nordic_card_bg">#FFFFFF</color>
+    <color name="nordic_dark">#1B262C</color>
+    <color name="nordic_slate">#2F3E46</color>
+    <color name="nordic_subtle">#6C7A89</color>
+    <color name="nordic_border">#E2E8F0</color>
+    <color name="nordic_pine">#354F52</color>
+    <color name="nordic_sage">#52796F</color>
+    <color name="nordic_mist">#CAD2C5</color>
+    <color name="nordic_amber">#D49B5B</color>
+    <color name="nordic_terracotta">#C86452</color>
+    <color name="nordic_ice">#E8EFF3</color>
+    <color name="nordic_ice_dark">#4A6B82</color>
+    <color name="nordic_lavender">#5E5A80</color>
+    <color name="nordic_notepad_line">#E9ECEF</color>
+    <color name="nordic_notepad_margin">#F28482</color>
+    <color name="white">#FFFFFF</color>
+</resources>

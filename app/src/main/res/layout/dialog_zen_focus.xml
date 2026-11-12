@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_nordic_card"
+    android:padding="20dp">
+
+    <!-- Header bar with close button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_focus_zen"
+            app:tint="#52796F"
+            android:contentDescription="Focus" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="NORDIC ZEN FOCUS POD"
+            android:textColor="#52796F"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08" />
+
+        <ImageView
+            android:id="@+id/btnCloseFocus"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_delete"
+            app:tint="#6C7A89"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Close" />
+    </LinearLayout>
+
+    <!-- Assignment Title & Subject -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/tvFocusSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Philosophy"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_chip_pill"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvFocusAssignmentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Nordic Ethics &amp; Well-being Essay"
+            android:textColor="#1B262C"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Nordic Inspiring Motto -->
+    <TextView
+        android:id="@+id/tvFocusQuote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="“Quiet minds build deep understanding.”"
+        android:textColor="#6C7A89"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+    <!-- Timer Display Container -->
+    <FrameLayout
+        android:id="@+id/layoutTimerCircle"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_nordic_card"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTimerTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25:00"
+                android:textColor="#2F3E46"
+                android:textSize="44sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTimerStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="READY TO FOCUS"
+                android:textColor="#52796F"
+                android:textSize="11sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Sprint Duration Selection Pills -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/chipDuration15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 min Sprint"
+            android:textColor="#2F3E46"
+            android:background="@drawable/bg_chip_filter_unselected"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/chipDuration25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="25 min Pomodoro"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_chip_filter_selected"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/chipDuration45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="45 min Deep"
+            android:textColor="#2F3E46"
+            android:background="@drawable/bg_chip_filter_unselected"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+    <!-- Controls Row: Play/Pause and Reset -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <!-- Reset Button -->
+        <ImageView
+            android:id="@+id/btnResetTimer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="@drawable/bg_button_nordic_outline"
+            android:src="@drawable/ic_refresh"
+            app:tint="#6C7A89"
+            android:contentDescription="Reset timer" />
+
+        <!-- Play / Pause Main Button -->
+        <FrameLayout
+            android:id="@+id/btnToggleTimer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_button_zen"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivPlayPauseIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play"
+                app:tint="@color/white"
+                android:contentDescription="Play or Pause" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- In-Session Scratchpad ("Eureka Notes") -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_notepad_paper"
+        android:padding="12dp"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💡 Eureka / Scratchpad (Quick thought during sprint)"
+            android:textColor="#52796F"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etFocusScratchpad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:maxLines="4"
+            android:background="@null"
+            android:hint="Jot down quick thoughts to keep your focus unbroken..."
+            android:textColor="#1B262C"
+            android:textColorHint="#94A3B8"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Bottom Finish & Log Button -->
+    <TextView
+        android:id="@+id/btnFinishAndLogSession"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_button_nordic_primary"
+        android:gravity="center"
+        android:text="Finish &amp; Log Focus Time"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>
