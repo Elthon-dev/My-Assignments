@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.nordic.myassignments'
-    compileSdk 36
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.nordic.myassignments"
