@@ -144,13 +144,13 @@ public class ZenFocusDialog extends Dialog {
 
         // Update chip styles
         chipDuration15.setBackgroundResource(minutes == 15 ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipDuration15.setTextColor(minutes == 15 ? Color.WHITE : Color.parseColor("#2F3E46"));
+        chipDuration15.setTextColor(minutes == 15 ? Color.BLACK : Color.parseColor("#8E8E93"));
 
         chipDuration25.setBackgroundResource(minutes == 25 ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipDuration25.setTextColor(minutes == 25 ? Color.WHITE : Color.parseColor("#2F3E46"));
+        chipDuration25.setTextColor(minutes == 25 ? Color.BLACK : Color.parseColor("#8E8E93"));
 
         chipDuration45.setBackgroundResource(minutes == 45 ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipDuration45.setTextColor(minutes == 45 ? Color.WHITE : Color.parseColor("#2F3E46"));
+        chipDuration45.setTextColor(minutes == 45 ? Color.BLACK : Color.parseColor("#8E8E93"));
     }
 
     private void startTimer() {

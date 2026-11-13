@@ -56,14 +56,14 @@ public class AddEditAssignmentDialog extends Dialog {
     private String selectedPriority = "MEDIUM";
     private String selectedColorHex = "#52796F"; // Nordic sage default
 
-    private static final String[] NORDIC_PALETTE = {
-            "#354F52", // Nordic Forest Pine
-            "#2F3E46", // Nordic Slate
-            "#52796F", // Nordic Sage
-            "#4A6B82", // Nordic Fjord Blue
-            "#C86452", // Nordic Terracotta
-            "#D49B5B", // Nordic Birch Amber
-            "#5E5A80"  // Nordic Heather Lavender
+    private static final String[] MONOCHROME_PALETTE = {
+            "#FFFFFF", // Pure White
+            "#E5E5EA", // Platinum Silver
+            "#A1A1AA", // Zinc Gray
+            "#71717A", // Slate Gray
+            "#52525B", // Neutral Gray
+            "#3F3F46", // Charcoal
+            "#27272A"  // Deep Obsidian
     };
 
     public AddEditAssignmentDialog(@NonNull Context context, Assignment existing, OnAssignmentSavedListener listener) {
@@ -175,13 +175,13 @@ public class AddEditAssignmentDialog extends Dialog {
         selectedPriority = priority != null ? priority.toUpperCase() : "MEDIUM";
 
         chipPriorityHigh.setBackgroundResource("HIGH".equals(selectedPriority) ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipPriorityHigh.setTextColor("HIGH".equals(selectedPriority) ? Color.WHITE : Color.parseColor("#C86452"));
+        chipPriorityHigh.setTextColor("HIGH".equals(selectedPriority) ? Color.BLACK : Color.parseColor("#8E8E93"));
 
         chipPriorityMed.setBackgroundResource("MEDIUM".equals(selectedPriority) ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipPriorityMed.setTextColor("MEDIUM".equals(selectedPriority) ? Color.WHITE : Color.parseColor("#D49B5B"));
+        chipPriorityMed.setTextColor("MEDIUM".equals(selectedPriority) ? Color.BLACK : Color.parseColor("#8E8E93"));
 
         chipPriorityLow.setBackgroundResource("LOW".equals(selectedPriority) ? R.drawable.bg_chip_filter_selected : R.drawable.bg_chip_filter_unselected);
-        chipPriorityLow.setTextColor("LOW".equals(selectedPriority) ? Color.WHITE : Color.parseColor("#52796F"));
+        chipPriorityLow.setTextColor("LOW".equals(selectedPriority) ? Color.BLACK : Color.parseColor("#8E8E93"));
     }
 
     private void setupColorSwatches() {
@@ -189,7 +189,7 @@ public class AddEditAssignmentDialog extends Dialog {
         int sizePx = (int) (32 * getContext().getResources().getDisplayMetrics().density);
         int marginPx = (int) (6 * getContext().getResources().getDisplayMetrics().density);
 
-        for (final String colorHex : NORDIC_PALETTE) {
+        for (final String colorHex : MONOCHROME_PALETTE) {
             FrameLayout frame = new FrameLayout(getContext());
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(sizePx, sizePx);
             lp.setMargins(marginPx, marginPx, marginPx, marginPx);

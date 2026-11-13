@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp">
+    android:padding="8dp">
 
     <!-- The 3D Flippable Card Container -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="24dp"
+        app:cardCornerRadius="22dp"
         app:cardElevation="6dp"
-        app:cardMaxElevation="10dp"
-        app:cardBackgroundColor="@color/white">
+        app:cardMaxElevation="8dp"
+        app:cardBackgroundColor="#141414">
 
         <!-- ================= CARD FRONT: OVERVIEW ================= -->
         <LinearLayout
@@ -30,9 +30,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="18dp"
+                android:paddingStart="18dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="10dp">
 
                 <!-- Subject Pill -->
@@ -40,13 +40,13 @@
                     android:id="@+id/tvSubjectTag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Philosophy"
-                    android:textColor="@color/white"
+                    android:text="General"
+                    android:textColor="#FFFFFF"
                     android:background="@drawable/bg_chip_pill"
-                    android:paddingHorizontal="14dp"
+                    android:paddingHorizontal="12dp"
                     android:paddingVertical="5dp"
                     android:textStyle="bold"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:letterSpacing="0.04" />
 
                 <!-- Priority Chip -->
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="HIGH"
-                    android:textColor="#C86452"
+                    android:textColor="#FFFFFF"
                     android:background="@drawable/bg_chip_pill"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="IN PROGRESS"
-                    android:textColor="#52796F"
+                    android:textColor="#FFFFFF"
                     android:background="@drawable/bg_chip_pill"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp"
@@ -89,6 +89,7 @@
                     android:layout_marginStart="6dp"
                     android:padding="6dp"
                     android:src="@drawable/ic_more"
+                    app:tint="#8E8E93"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="More Options" />
             </LinearLayout>
@@ -99,7 +100,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fillViewport="true"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="18dp"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -112,10 +113,10 @@
                         android:id="@+id/tvAssignmentTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Nordic Ethics &amp; Well-being Essay"
-                        android:textColor="#1B262C"
-                        android:textSize="22sp"
+                        android:layout_marginTop="6dp"
+                        android:text="Assignment Title"
+                        android:textColor="#FFFFFF"
+                        android:textSize="21sp"
                         android:textStyle="bold"
                         android:lineSpacingExtra="3dp" />
 
@@ -128,10 +129,10 @@
                         android:layout_marginTop="12dp">
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:src="@drawable/ic_calendar"
-                            app:tint="#6C7A89"
+                            app:tint="#8E8E93"
                             android:contentDescription="Due Date" />
 
                         <TextView
@@ -139,22 +140,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="Due in 2 days"
-                            android:textColor="#2F3E46"
-                            android:textSize="13sp"
+                            android:text="Due soon"
+                            android:textColor="#E5E5EA"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="  •  "
-                            android:textColor="#CAD2C5" />
+                            android:textColor="#3A3A3C" />
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:src="@drawable/ic_clock"
-                            app:tint="#6C7A89"
+                            app:tint="#8E8E93"
                             android:contentDescription="Estimated time" />
 
                         <TextView
@@ -162,23 +163,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
-                            android:text="3.5 hrs"
-                            android:textColor="#6C7A89"
-                            android:textSize="13sp" />
+                            android:text="2.0 hrs"
+                            android:textColor="#8E8E93"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="  •  "
-                            android:textColor="#CAD2C5" />
+                            android:textColor="#3A3A3C" />
 
                         <TextView
                             android:id="@+id/tvGradeWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="25% of Grade"
-                            android:textColor="#6C7A89"
-                            android:textSize="13sp" />
+                            android:text="15% Grade"
+                            android:textColor="#8E8E93"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <!-- Focus Study Tracker Banner -->
@@ -189,16 +190,16 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_chip_pill"
-                        android:paddingHorizontal="14dp"
+                        android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:layout_marginTop="14dp">
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:src="@drawable/ic_focus_zen"
-                            app:tint="#52796F"
-                            android:contentDescription="Focus" />
+                            app:tint="#FFFFFF"
+                            android:contentDescription="Focus Mode" />
 
                         <TextView
                             android:id="@+id/tvFocusTimeSpent"
@@ -206,71 +207,73 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="50 mins focused study"
-                            android:textColor="#2F3E46"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:text="Ready for focus sprint"
+                            android:textColor="#E5E5EA"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Zen Focus"
-                            android:textColor="#52796F"
+                            android:text="START"
+                            android:textColor="#FFFFFF"
                             android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:letterSpacing="0.06" />
                     </LinearLayout>
 
-                    <!-- Milestones Progress Bar & Indicator -->
+                    <!-- Milestone Progress Bar & Ratio -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginTop="16dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:text="CHECKLIST PROGRESS"
+                            android:textColor="#8E8E93"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.08" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Milestones &amp; Sub-tasks"
-                                android:textColor="#2F3E46"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
 
-                            <TextView
-                                android:id="@+id/tvTaskProgressRatio"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="2 / 4 (50%)"
-                                android:textColor="#52796F"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <ProgressBar
-                            android:id="@+id/pbTaskProgress"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="6dp"
-                            android:max="100"
-                            android:progress="50"
-                            android:progressDrawable="@drawable/bg_progress_bar" />
+                        <TextView
+                            android:id="@+id/tvTaskProgressRatio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 0 (0%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Notes Preview Box -->
+                    <ProgressBar
+                        android:id="@+id/pbTaskProgress"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="6dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/bg_progress_bar" />
+
+                    <!-- Scratchpad / Notes Preview Strip -->
                     <LinearLayout
                         android:id="@+id/layoutNotesPreview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:background="@drawable/bg_notepad_paper"
-                        android:padding="14dp"
-                        android:layout_marginTop="16dp">
+                        android:padding="12dp"
+                        android:layout_marginTop="14dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -279,62 +282,105 @@
                             android:gravity="center_vertical">
 
                             <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
                                 android:src="@drawable/ic_notes"
-                                app:tint="#2F3E46"
-                                android:contentDescription="Notepad" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="6dp"
-                                android:text="Notepad Scratchpad"
-                                android:textColor="#2F3E46"
-                                android:textStyle="bold"
-                                android:textSize="12sp" />
+                                app:tint="#FFFFFF"
+                                android:contentDescription="Notes" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tap to flip ↷"
-                                android:textColor="#6C7A89"
-                                android:textSize="11sp" />
+                                android:layout_marginStart="6dp"
+                                android:text="NOTES &amp; REFERENCE SCRATCHPAD"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.06" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_flip"
+                                app:tint="#8E8E93"
+                                android:contentDescription="Flip" />
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvNotesPreview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Tap 'Flip to Notepad' to view lecture notes, formulas, and checklist items."
-                            android:textColor="#52606D"
-                            android:textSize="13sp"
+                            android:layout_marginTop="6dp"
                             android:maxLines="3"
                             android:ellipsize="end"
+                            android:text="Tap to flip card &amp; jot down lecture notes, key milestones, or scratch thoughts..."
+                            android:textColor="#A1A1AA"
+                            android:textSize="12sp"
                             android:lineSpacingExtra="2dp" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="• Double tap to complete • Swipe to cycle stack •"
+                        android:textColor="#52525B"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.04" />
                 </LinearLayout>
             </ScrollView>
 
-            <!-- Bottom Action Buttons: Flip to Notes & Focus Sprint -->
+            <!-- Bottom Card Action Controls -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="14dp"
-                android:background="#F8FAF9">
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="12dp">
 
-                <!-- Flip to Notes Button -->
+                <!-- Flip to Notes Pad Button -->
                 <LinearLayout
                     android:id="@+id/btnFlipToBack"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="44dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_nordic_outline"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_flip"
+                        app:tint="#FFFFFF"
+                        android:contentDescription="Flip" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Notes &amp; Tasks"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Zen Focus Button -->
+                <LinearLayout
+                    android:id="@+id/btnZenFocusMode"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
                     android:background="@drawable/bg_button_nordic_primary"
                     android:gravity="center"
                     android:clickable="true"
@@ -342,40 +388,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_flip"
-                        app:tint="@color/white"
-                        android:contentDescription="Flip" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:text="Flip to Notes"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <!-- Zen Focus Button -->
-                <LinearLayout
-                    android:id="@+id/btnZenFocusMode"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/bg_button_zen"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
                         android:src="@drawable/ic_focus_zen"
-                        app:tint="@color/white"
+                        app:tint="#000000"
                         android:contentDescription="Zen Focus" />
 
                     <TextView
@@ -383,9 +399,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:text="Zen Focus"
-                        android:textColor="@color/white"
+                        android:textColor="#000000"
                         android:textStyle="bold"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -405,15 +421,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp"
-                android:background="#EFF3F1">
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:background="#161616">
 
                 <!-- Flip Back Button -->
                 <LinearLayout
                     android:id="@+id/btnFlipToFront"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
+                    android:layout_height="34dp"
                     android:background="@drawable/bg_chip_pill"
                     android:paddingHorizontal="10dp"
                     android:gravity="center"
@@ -421,19 +437,19 @@
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         android:src="@drawable/ic_flip"
-                        app:tint="#2F3E46"
+                        app:tint="#FFFFFF"
                         android:contentDescription="Flip back" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Overview"
-                        android:textColor="#2F3E46"
-                        android:textSize="12sp"
+                        android:text="Card"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -442,10 +458,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="Note Taking Pad"
-                    android:textColor="#2F3E46"
-                    android:textSize="13sp"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Notes &amp; Milestones"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:singleLine="true"
                     android:ellipsize="end" />
@@ -453,25 +469,30 @@
                 <!-- Copy / Share Notes -->
                 <ImageView
                     android:id="@+id/btnCopyNotes"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:padding="8dp"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="7dp"
                     android:src="@drawable/ic_share"
-                    app:tint="#2F3E46"
+                    app:tint="#8E8E93"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Share notes" />
 
-                <!-- Save Notes Checkmark -->
+                <!-- Save Notes / Finish Edit Checkmark -->
                 <ImageView
                     android:id="@+id/btnSaveNotes"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:padding="8dp"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="7dp"
                     android:src="@drawable/ic_check"
-                    app:tint="#52796F"
+                    app:tint="#FFFFFF"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Save Notes" />
+                    android:contentDescription="Save &amp; Return" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#262626" />
 
             <!-- Scrollable Notepad & Checklist Area -->
             <ScrollView
@@ -479,8 +500,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fillViewport="true"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="12dp"
+                android:paddingHorizontal="14dp"
+                android:paddingTop="10dp"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -492,54 +513,46 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NORDIC NOTE PAD"
-                        android:textColor="#52796F"
+                        android:text="NOTES &amp; REFERENCE PAD"
+                        android:textColor="#8E8E93"
                         android:textStyle="bold"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         android:letterSpacing="0.08" />
 
                     <EditText
                         android:id="@+id/etAssignmentNotes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minLines="6"
-                        android:maxLines="14"
+                        android:minLines="5"
+                        android:maxLines="10"
                         android:layout_marginTop="6dp"
-                        android:padding="12dp"
                         android:background="@drawable/bg_notepad_paper"
                         android:gravity="top|start"
-                        android:hint="Jot down assignment notes, research points, formula references, or professor tips here..."
-                        android:textColor="#1B262C"
-                        android:textColorHint="#94A3B8"
-                        android:textSize="14sp"
-                        android:lineSpacingExtra="4dp" />
+                        android:hint="Jot down notes, lecture formulas, essay points, professor tips..."
+                        android:padding="12dp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#52525B"
+                        android:textSize="13sp"
+                        android:lineSpacingExtra="3dp" />
 
-                    <!-- Checklist Section -->
+                    <!-- Checklist / Subtasks Section Header -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="MILESTONE CHECKLIST"
+                        android:textColor="#8E8E93"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.08" />
+
+                    <!-- Quick Add Subtask Input Row -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="16dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="CHECKLIST &amp; MILESTONES"
-                            android:textColor="#52796F"
-                            android:textStyle="bold"
-                            android:textSize="11sp"
-                            android:letterSpacing="0.08" />
-                    </LinearLayout>
-
-                    <!-- Add new checklist item row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="6dp">
 
                         <EditText
                             android:id="@+id/etNewSubTask"
@@ -548,21 +561,21 @@
                             android:layout_weight="1"
                             android:background="@drawable/bg_notepad_paper"
                             android:hint="+ Add sub-task or milestone..."
-                            android:textColorHint="#94A3B8"
-                            android:textColor="#2F3E46"
+                            android:textColorHint="#52525B"
+                            android:textColor="#FFFFFF"
                             android:textSize="13sp"
                             android:paddingHorizontal="10dp"
                             android:singleLine="true" />
 
                         <ImageView
                             android:id="@+id/btnAddSubTask"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
                             android:layout_marginStart="8dp"
-                            android:background="@drawable/bg_button_zen"
+                            android:background="@drawable/bg_button_nordic_outline"
                             android:padding="8dp"
                             android:src="@drawable/ic_add"
-                            app:tint="@color/white"
+                            app:tint="#FFFFFF"
                             android:contentDescription="Add sub task" />
                     </LinearLayout>
 
@@ -574,36 +587,85 @@
                         android:orientation="vertical"
                         android:layout_marginTop="8dp" />
 
-                    <!-- Padding space -->
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp" />
+                        android:layout_height="16dp" />
                 </LinearLayout>
             </ScrollView>
 
-            <!-- Bottom Quick Actions for Note Pad -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#262626" />
+
+            <!-- Bottom Action for Note Pad -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="10dp"
-                android:background="#EFF3F1">
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp"
+                android:background="#161616">
 
                 <TextView
                     android:id="@+id/btnQuickFocusFromNotes"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:background="@drawable/bg_button_zen"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_button_nordic_outline"
                     android:gravity="center"
-                    android:text="🌿 Focus On This Assignment"
-                    android:textColor="@color/white"
+                    android:text="Focus On This Assignment"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:clickable="true"
                     android:focusable="true" />
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Completion Burst Overlay -->
+        <FrameLayout
+            android:id="@+id/layoutCompletionOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E60A0A0A"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivCompletionCheck"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:background="@drawable/bg_chip_pill"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_check"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="COMPLETED"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.12"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Removed from active stack"
+                    android:textColor="#8E8E93"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </FrameLayout>
+
     </androidx.cardview.widget.CardView>
 </FrameLayout>

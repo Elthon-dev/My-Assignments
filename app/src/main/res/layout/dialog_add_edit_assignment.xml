@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Assignment Card"
-            android:textColor="#1B262C"
+            android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Add to your Nordic flipcard pad"
-            android:textColor="#6C7A89"
+            android:text="Add to your matte flipcard stack"
+            android:textColor="#8E8E93"
             android:textSize="12sp" />
 
         <!-- Assignment Title Input -->
@@ -36,45 +36,45 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="ASSIGNMENT TITLE"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
         <EditText
             android:id="@+id/etDialogAssignmentTitle"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="44dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_notepad_paper"
-            android:hint="e.g. History Comparative Thesis"
+            android:hint="e.g. Research Thesis &amp; Outline"
             android:paddingHorizontal="12dp"
-            android:textColor="#1B262C"
-            android:textColorHint="#94A3B8"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#52525B"
             android:textSize="14sp"
             android:singleLine="true" />
 
-        <!-- Subject Input & Quick Suggestions -->
+        <!-- Subject Input -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:text="SUBJECT / COURSE"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
         <EditText
             android:id="@+id/etDialogSubject"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="44dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_notepad_paper"
-            android:hint="e.g. Mathematics, Literature, Biology..."
+            android:hint="e.g. Architecture, Physics, Economics..."
             android:paddingHorizontal="12dp"
-            android:textColor="#1B262C"
-            android:textColorHint="#94A3B8"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#52525B"
             android:textSize="14sp"
             android:singleLine="true" />
 
@@ -84,37 +84,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:text="DUE DATE"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
         <LinearLayout
             android:id="@+id/btnPickDueDate"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="44dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_notepad_paper"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:paddingHorizontal="12dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@drawable/ic_calendar"
-                app:tint="#52796F"
-                android:contentDescription="Calendar" />
+                app:tint="#8E8E93"
+                android:contentDescription="Pick Date" />
 
             <TextView
                 android:id="@+id/tvPickedDueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Select deadline date"
-                android:textColor="#2F3E46"
+                android:text="Pick deadline date"
+                android:textColor="#FFFFFF"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -123,69 +122,69 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="PRIORITY LEVEL"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:text="PRIORITY"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="6dp">
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/chipPriorityHigh"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="36dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:text="High"
-                android:textColor="#C86452"
-                android:textStyle="bold"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:clickable="true"
                 android:focusable="true" />
 
             <TextView
                 android:id="@+id/chipPriorityMed"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="36dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_selected"
                 android:gravity="center"
                 android:text="Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textColor="#000000"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:clickable="true"
                 android:focusable="true" />
 
             <TextView
                 android:id="@+id/chipPriorityLow"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="36dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:text="Low"
-                android:textColor="#52796F"
-                android:textStyle="bold"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 android:clickable="true"
                 android:focusable="true" />
         </LinearLayout>
 
-        <!-- Estimated Hours & Grade Weight Row -->
+        <!-- Estimated Hours & Weight Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="14dp">
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -197,10 +196,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EST. HOURS"
-                    android:textColor="#52796F"
-                    android:textSize="11sp"
+                    android:textColor="#8E8E93"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.06" />
+                    android:letterSpacing="0.08" />
 
                 <EditText
                     android:id="@+id/etDialogEstimatedHours"
@@ -208,12 +207,12 @@
                     android:layout_height="44dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/bg_notepad_paper"
-                    android:hint="e.g. 2.5"
+                    android:hint="2.5"
                     android:inputType="numberDecimal"
                     android:paddingHorizontal="12dp"
-                    android:textColor="#1B262C"
-                    android:textColorHint="#94A3B8"
-                    android:textSize="13sp" />
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#52525B"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -226,11 +225,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GRADE WEIGHT (%)"
-                    android:textColor="#52796F"
-                    android:textSize="11sp"
+                    android:text="GRADE WEIGHT %"
+                    android:textColor="#8E8E93"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.06" />
+                    android:letterSpacing="0.08" />
 
                 <EditText
                     android:id="@+id/etDialogGradeWeight"
@@ -238,94 +237,98 @@
                     android:layout_height="44dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/bg_notepad_paper"
-                    android:hint="e.g. 20"
+                    android:hint="15"
                     android:inputType="number"
                     android:paddingHorizontal="12dp"
-                    android:textColor="#1B262C"
-                    android:textColorHint="#94A3B8"
-                    android:textSize="13sp" />
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#52525B"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Initial Notes & Scratchpad -->
+        <!-- Initial Notes -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:text="INITIAL NOTES / SCRATCHPAD"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
         <EditText
             android:id="@+id/etDialogNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:minLines="3"
             android:maxLines="6"
-            android:layout_marginTop="6dp"
             android:background="@drawable/bg_notepad_paper"
             android:gravity="top|start"
-            android:hint="Key pointers, reading chapters, or formulas..."
+            android:hint="Key pointers, references, formula links..."
             android:padding="12dp"
-            android:textColor="#1B262C"
-            android:textColorHint="#94A3B8"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#52525B"
             android:textSize="13sp" />
 
-        <!-- Nordic Color Selection Palette -->
+        <!-- Accent Palette Swatches -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="NORDIC PALETTE TINT"
-            android:textColor="#52796F"
-            android:textSize="11sp"
+            android:text="CARD ACCENT TINT"
+            android:textColor="#8E8E93"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.06" />
+            android:letterSpacing="0.08" />
 
-        <LinearLayout
-            android:id="@+id/layoutColorPicker"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="6dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:scrollbars="none">
 
-        <!-- Buttons Row -->
+            <LinearLayout
+                android:id="@+id/layoutColorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <!-- Bottom Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/btnCancelDialog"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="6dp"
                 android:background="@drawable/bg_button_nordic_outline"
                 android:gravity="center"
                 android:text="Cancel"
-                android:textColor="#6C7A89"
-                android:textStyle="bold"
+                android:textColor="#8E8E93"
                 android:textSize="13sp"
+                android:textStyle="bold"
                 android:clickable="true"
                 android:focusable="true" />
 
             <TextView
                 android:id="@+id/btnSaveDialogAssignment"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="12dp"
                 android:background="@drawable/bg_button_nordic_primary"
                 android:gravity="center"
                 android:text="Save Card"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textColor="#000000"
                 android:textSize="13sp"
+                android:textStyle="bold"
                 android:clickable="true"
                 android:focusable="true" />
         </LinearLayout>

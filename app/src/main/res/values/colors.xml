@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="nordic_bg">#F4F6F4</color>
-    <color name="nordic_card_bg">#FFFFFF</color>
-    <color name="nordic_dark">#1B262C</color>
-    <color name="nordic_slate">#2F3E46</color>
-    <color name="nordic_subtle">#6C7A89</color>
-    <color name="nordic_border">#E2E8F0</color>
-    <color name="nordic_pine">#354F52</color>
-    <color name="nordic_sage">#52796F</color>
-    <color name="nordic_mist">#CAD2C5</color>
-    <color name="nordic_amber">#D49B5B</color>
-    <color name="nordic_terracotta">#C86452</color>
-    <color name="nordic_ice">#E8EFF3</color>
-    <color name="nordic_ice_dark">#4A6B82</color>
-    <color name="nordic_lavender">#5E5A80</color>
-    <color name="nordic_notepad_line">#E9ECEF</color>
-    <color name="nordic_notepad_margin">#F28482</color>
+    <!-- Matte Monochrome Dark Theme Palette -->
+    <color name="bg_matte_black">#0A0A0A</color>
+    <color name="card_matte_surface">#141414</color>
+    <color name="card_matte_back">#171717</color>
+    <color name="matte_border">#262626</color>
+    <color name="matte_border_subtle">#1F1F1F</color>
+    <color name="matte_pill_bg">#1F1F1F</color>
+    <color name="matte_input_bg">#181818</color>
+    <color name="matte_pure_white">#FFFFFF</color>
+    <color name="matte_silver">#E5E5EA</color>
+    <color name="matte_muted_gray">#8E8E93</color>
+    <color name="matte_dim_gray">#48484A</color>
+    <color name="matte_completed_green">#34C759</color>
+
+    <!-- Theme & Legacy Aliases -->
+    <color name="nordic_bg">#0A0A0A</color>
+    <color name="nordic_card_bg">#141414</color>
+    <color name="nordic_dark">#FFFFFF</color>
+    <color name="nordic_slate">#E5E5EA</color>
+    <color name="nordic_subtle">#8E8E93</color>
+    <color name="nordic_border">#262626</color>
+    <color name="nordic_pine">#FFFFFF</color>
+    <color name="nordic_sage">#E5E5EA</color>
+    <color name="nordic_mist">#3A3A3C</color>
+    <color name="nordic_amber">#E5E5EA</color>
+    <color name="nordic_terracotta">#FFFFFF</color>
+    <color name="nordic_ice">#181818</color>
+    <color name="nordic_ice_dark">#242426</color>
+    <color name="nordic_lavender">#A1A1AA</color>
+    <color name="nordic_notepad_line">#222222</color>
+    <color name="nordic_notepad_margin">#333333</color>
     <color name="white">#FFFFFF</color>
 </resources>

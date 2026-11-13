@@ -298,7 +298,8 @@ public class AssignmentFlipcardAdapter extends RecyclerView.Adapter<AssignmentFl
                 if (listener != null) {
                     listener.onNotesUpdated(assignment, notes);
                 }
-                Toast.makeText(context, "Notes saved to " + assignment.getSubject(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+                flipCard(false, assignment);
             });
 
             // Copy / Share Notes Button

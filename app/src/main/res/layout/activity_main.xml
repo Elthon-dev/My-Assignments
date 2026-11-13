@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My-Assignments"
-                android:textColor="#1B262C"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:letterSpacing="-0.02" />
@@ -36,11 +36,11 @@
                 android:id="@+id/tvHeaderSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="Nordic Flipcard Note Taking Pad"
-                android:textColor="#52796F"
-                android:textSize="12sp"
-                android:letterSpacing="0.04"
+                android:layout_marginTop="2dp"
+                android:text="Matte Monochrome Card Stack"
+                android:textColor="#8E8E93"
+                android:textSize="11sp"
+                android:letterSpacing="0.06"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -48,7 +48,7 @@
         <LinearLayout
             android:id="@+id/btnAddNewAssignment"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
+            android:layout_height="36dp"
             android:background="@drawable/bg_button_nordic_primary"
             android:gravity="center"
             android:paddingHorizontal="14dp"
@@ -56,18 +56,18 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:src="@drawable/ic_add"
-                app:tint="@color/white"
+                app:tint="#000000"
                 android:contentDescription="Add card" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="6dp"
                 android:text="New Card"
-                android:textColor="@color/white"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -80,7 +80,7 @@
         android:scrollbars="none"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -90,12 +90,12 @@
             <TextView
                 android:id="@+id/chipFilterAll"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="32dp"
                 android:background="@drawable/bg_chip_filter_selected"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
                 android:text="All Cards"
-                android:textColor="@color/white"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -104,13 +104,13 @@
             <TextView
                 android:id="@+id/chipFilterDueSoon"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="⏰ Due Soon"
-                android:textColor="#2F3E46"
+                android:text="Due Soon"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -119,13 +119,13 @@
             <TextView
                 android:id="@+id/chipFilterActive"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="⚡ In Progress"
-                android:textColor="#2F3E46"
+                android:text="In Progress"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -134,13 +134,13 @@
             <TextView
                 android:id="@+id/chipFilterPriority"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="🔥 High Priority"
-                android:textColor="#2F3E46"
+                android:text="High Priority"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -149,13 +149,13 @@
             <TextView
                 android:id="@+id/chipFilterCompleted"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_filter_unselected"
                 android:gravity="center"
                 android:paddingHorizontal="14dp"
-                android:text="✓ Completed"
-                android:textColor="#2F3E46"
+                android:text="Completed"
+                android:textColor="#8E8E93"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -163,21 +163,48 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Main Flipcard Deck Area -->
+    <!-- Main Stack Deck Area -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
-        <!-- The Horizontal Swipeable Pad ViewPager2 -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerCards"
+        <!-- Stack Container holding the layered cards -->
+        <FrameLayout
+            android:id="@+id/layoutCardStackContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false"
-            android:clipToPadding="false"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp" />
+            android:clipToPadding="false">
+
+            <!-- Bottom Card Layer (behind) -->
+            <FrameLayout
+                android:id="@+id/containerCardBottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:visibility="gone" />
+
+            <!-- Middle Card Layer (behind) -->
+            <FrameLayout
+                android:id="@+id/containerCardMiddle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:visibility="gone" />
+
+            <!-- Active Top Card Layer (primary, interactive) -->
+            <FrameLayout
+                android:id="@+id/containerCardTop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <!-- Empty State Container -->
         <LinearLayout
@@ -186,45 +213,77 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="32dp"
+            android:padding="28dp"
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:src="@drawable/ic_focus_zen"
-                app:tint="#52796F"
-                android:contentDescription="No assignments" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_notes"
+                app:tint="#52525B"
+                android:contentDescription="Empty Stack" />
 
             <TextView
+                android:id="@+id/tvEmptyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="All Clear on Your Deck"
-                android:textColor="#1B262C"
+                android:text="Your Stack is Empty"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvEmptySubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:gravity="center"
-                android:text="No assignment cards found in this view. Enjoy the peaceful Nordic calm or create a new card."
-                android:textColor="#6C7A89"
+                android:text="No assignment cards found. Start with a clean slate and create your first matte card."
+                android:textColor="#8E8E93"
                 android:textSize="13sp"
                 android:lineSpacingExtra="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_chip_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUICK GESTURES"
+                    android:textColor="#8E8E93"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.08"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:text="• Double-tap to complete\n• Swipe left or right to cycle stack\n• Tap notes / flip to edit &amp; check to return"
+                    android:textColor="#A1A1AA"
+                    android:textSize="11sp"
+                    android:lineSpacingExtra="2dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/btnEmptyCreateCard"
                 android:layout_width="wrap_content"
-                android:layout_height="42dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_button_nordic_primary"
                 android:gravity="center"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="22dp"
                 android:text="+ Create Assignment Card"
-                android:textColor="@color/white"
+                android:textColor="#000000"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:clickable="true"
@@ -232,7 +291,7 @@
         </LinearLayout>
     </FrameLayout>
 
-    <!-- Bottom Carousel Deck Controls & Card Counter -->
+    <!-- Bottom Stack Controls & Status Strip -->
     <LinearLayout
         android:id="@+id/layoutBottomDeckControls"
         android:layout_width="match_parent"
@@ -241,20 +300,20 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
-        android:background="#EFF3F0">
+        android:background="#0D0D0D">
 
-        <!-- Previous Card Chevron -->
+        <!-- Previous Card / Pull to Top -->
         <ImageView
             android:id="@+id/btnPrevCard"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:padding="8dp"
+            android:padding="9dp"
             android:background="@drawable/bg_chip_pill"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#2F3E46"
+            app:tint="#FFFFFF"
             android:contentDescription="Previous Card" />
 
-        <!-- Counter & Gesture Swipe Hint -->
+        <!-- Counter & Gesture Stack Hint -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -266,28 +325,28 @@
                 android:id="@+id/tvCardDeckCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Card 1 of 5"
-                android:textColor="#2F3E46"
+                android:text="Stack: 1 of 5"
+                android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Swipe left / right or tap to flip"
-                android:textColor="#6C7A89"
+                android:text="Swipe left/right to cycle • Double-tap to complete"
+                android:textColor="#8E8E93"
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Next Card Chevron -->
+        <!-- Next Card / Send to Bottom -->
         <ImageView
             android:id="@+id/btnNextCard"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:padding="8dp"
+            android:padding="9dp"
             android:background="@drawable/bg_chip_pill"
             android:src="@drawable/ic_arrow_forward"
-            app:tint="#2F3E46"
+            app:tint="#FFFFFF"
             android:contentDescription="Next Card" />
     </LinearLayout>
 </LinearLayout>

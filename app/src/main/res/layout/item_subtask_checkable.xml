@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -11,7 +12,7 @@
         android:id="@+id/cbSubTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="#52796F" />
+        android:buttonTint="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvSubTaskTitle"
@@ -19,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="6dp"
-        android:textColor="#2F3E46"
-        android:textSize="14sp" />
+        android:textColor="#E5E5EA"
+        android:textSize="13sp" />
 
     <ImageView
         android:id="@+id/btnDeleteSubTask"
@@ -29,5 +30,6 @@
         android:padding="6dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_delete"
+        app:tint="#8E8E93"
         android:contentDescription="Delete Step" />
 </LinearLayout>

@@ -26,8 +26,33 @@ public class AssignmentRepository {
     private AssignmentRepository(Context context) {
         this.context = context.getApplicationContext();
         this.assignments = loadFromFile();
-        if (this.assignments.isEmpty()) {
-            this.assignments = createStarterAssignments();
+        // Ensure there are no dummy/starter assignments at start of opening the app
+        boolean changed = false;
+        for (int i = this.assignments.size() - 1; i >= 0; i--) {
+            String title = this.assignments.get(i).getTitle();
+            if (isStarterTitle(title)) {
+                this.assignments.remove(i);
+                changed = true;
+            }
+        }
+        if (changed) {
+            saveToFile();
+        }
+    }
+
+    private boolean isStarterTitle(String title) {
+        if (title == null) return false;
+        return title.contains("Nordic Ethics & Well-being Essay")
+                || title.contains("Calculus Problem Set #4")
+                || title.contains("Fjord Hydrology Lab")
+                || title.contains("Distributed Consensus")
+                || title.contains("Tomas Tranströmer");
+    }
+
+    public synchronized void markCompleted(String id) {
+        Assignment a = getById(id);
+        if (a != null) {
+            a.setStatus("COMPLETED");
             saveToFile();
         }
     }
