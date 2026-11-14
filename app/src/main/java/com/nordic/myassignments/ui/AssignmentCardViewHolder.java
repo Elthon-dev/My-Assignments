@@ -162,19 +162,27 @@ public class AssignmentCardViewHolder {
         tvSubjectTag.setBackgroundResource(R.drawable.bg_chip_pill);
         tvSubjectTag.setTextColor(Color.WHITE);
 
-        // Priority Badge styling (Matte Monochrome with subtle tonal difference)
+        // Priority Badge & Card Border: White = highest priority, Dark = lowest priority
         String priority = assignment.getPriority() != null ? assignment.getPriority().toUpperCase() : "MEDIUM";
-        tvPriorityBadge.setText(priority);
         tvPriorityBadge.setBackgroundResource(R.drawable.bg_chip_pill);
         if ("HIGH".equals(priority)) {
-            tvPriorityBadge.setTextColor(Color.parseColor("#FFFFFF"));
-            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2E2020")));
+            // Highest priority: Brightest white badge + White luminous card border
+            tvPriorityBadge.setText("★ HIGH");
+            tvPriorityBadge.setTextColor(Color.BLACK);
+            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+            layoutCardFront.setBackgroundResource(R.drawable.bg_nordic_card_high);
         } else if ("LOW".equals(priority)) {
-            tvPriorityBadge.setTextColor(Color.parseColor("#A1A1AA"));
-            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1C1C1E")));
+            // Lowest priority: Darkest, stealth tone
+            tvPriorityBadge.setText("• LOW");
+            tvPriorityBadge.setTextColor(Color.parseColor("#636366"));
+            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#161616")));
+            layoutCardFront.setBackgroundResource(R.drawable.bg_nordic_card_low);
         } else {
+            // Medium priority: Balanced silver tone
+            tvPriorityBadge.setText("◆ MEDIUM");
             tvPriorityBadge.setTextColor(Color.parseColor("#E5E5EA"));
-            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#242426")));
+            tvPriorityBadge.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2C2C2E")));
+            layoutCardFront.setBackgroundResource(R.drawable.bg_nordic_card);
         }
 
         // Status Badge styling

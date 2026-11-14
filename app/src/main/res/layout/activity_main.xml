@@ -1,167 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/nordic_bg">
 
-    <!-- Top App Header -->
-    <LinearLayout
+    <!-- Top Bar Container: Collapsed Bubble Card & Expanded Control Panel -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="12dp">
+        android:animateLayoutChanges="true">
 
+        <!-- 1. Collapsed Bubble Card (Original state placed on the top-left) -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/layoutTopBubbleCollapsed"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="8dp"
+            android:visibility="visible">
 
-            <TextView
+            <!-- The Bubble Card on the left with 3-line icon -->
+            <LinearLayout
+                android:id="@+id/btnOpenTopBubble"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My-Assignments"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.02" />
+                android:layout_height="38dp"
+                android:background="@drawable/bg_chip_pill"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true">
 
-            <TextView
-                android:id="@+id/tvHeaderSubtitle"
+                <!-- 3-line menu / hamburger icon -->
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_menu_hamburger"
+                    app:tint="#FFFFFF"
+                    android:contentDescription="Menu bubble" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="My-Assignments"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="-0.01" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Quick + New Card Button -->
+            <LinearLayout
+                android:id="@+id/btnQuickAddNewCard"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Matte Monochrome Card Stack"
-                android:textColor="#8E8E93"
-                android:textSize="11sp"
-                android:letterSpacing="0.06"
-                android:textStyle="bold" />
+                android:layout_height="38dp"
+                android:background="@drawable/bg_button_nordic_primary"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_add"
+                    app:tint="#000000"
+                    android:contentDescription="Add card" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="New Card"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- + New Card Action Button -->
+        <!-- 2. Expanded Bubble Panel (Full details with X button on the right) -->
         <LinearLayout
-            android:id="@+id/btnAddNewAssignment"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_button_nordic_primary"
-            android:gravity="center"
-            android:paddingHorizontal="14dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@drawable/ic_add"
-                app:tint="#000000"
-                android:contentDescription="Add card" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="New Card"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Horizontal Category / Filter Chips Bar -->
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layoutTopPanelExpanded"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="#121212"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/chipFilterAll"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:background="@drawable/bg_chip_filter_selected"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="All Cards"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
+            <!-- Expanded Header Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="18dp">
 
-            <TextView
-                android:id="@+id/chipFilterDueSoon"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_filter_unselected"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="Due Soon"
-                android:textColor="#8E8E93"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/chipFilterActive"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_filter_unselected"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="In Progress"
-                android:textColor="#8E8E93"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My-Assignments"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.02" />
 
-            <TextView
-                android:id="@+id/chipFilterPriority"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_filter_unselected"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="High Priority"
-                android:textColor="#8E8E93"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="Matte Monochrome Stack"
+                        android:textColor="#8E8E93"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/chipFilterCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_filter_unselected"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="Completed"
-                android:textColor="#8E8E93"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
+                <!-- + New Card inside panel -->
+                <LinearLayout
+                    android:id="@+id/btnAddNewAssignment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_button_nordic_primary"
+                    android:gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/ic_add"
+                        app:tint="#000000"
+                        android:contentDescription="Add card" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="New"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- X Close Button on the very right -->
+                <ImageView
+                    android:id="@+id/btnCloseTopPanel"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_pill"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_close_x"
+                    app:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Close Panel" />
+            </LinearLayout>
+
+            <!-- Horizontal Filter Chips Bar -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chipFilterAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_chip_filter_selected"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="All Cards"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/chipFilterDueSoon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_chip_filter_unselected"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="Due Soon"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/chipFilterActive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_chip_filter_unselected"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="In Progress"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/chipFilterPriority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_chip_filter_unselected"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="High Priority"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <TextView
+                        android:id="@+id/chipFilterCompleted"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_chip_filter_unselected"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="Completed"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="#202020" />
         </LinearLayout>
-    </HorizontalScrollView>
+    </FrameLayout>
 
     <!-- Main Stack Deck Area -->
     <FrameLayout
@@ -171,7 +282,8 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
+        android:paddingTop="4dp"
+        android:paddingBottom="12dp">
 
         <!-- Stack Container holding the layered cards -->
         <FrameLayout
@@ -181,7 +293,7 @@
             android:clipChildren="false"
             android:clipToPadding="false">
 
-            <!-- Bottom Card Layer (behind) -->
+            <!-- Bottom Card Layer (behind - top edge showing at the very top) -->
             <FrameLayout
                 android:id="@+id/containerCardBottom"
                 android:layout_width="match_parent"
@@ -189,7 +301,7 @@
                 android:clipChildren="false"
                 android:visibility="gone" />
 
-            <!-- Middle Card Layer (behind) -->
+            <!-- Middle Card Layer (behind - top edge showing) -->
             <FrameLayout
                 android:id="@+id/containerCardMiddle"
                 android:layout_width="match_parent"
@@ -197,8 +309,8 @@
                 android:clipChildren="false"
                 android:visibility="gone" />
 
-            <!-- Active Top Card Layer (primary, interactive) -->
-            <FrameLayout
+            <!-- Active Top Card Layer with custom gesture interceptor -->
+            <com.nordic.myassignments.ui.InteractiveStackLayout
                 android:id="@+id/containerCardTop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -268,7 +380,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:gravity="center"
-                    android:text="• Double-tap to complete\n• Swipe left or right to cycle stack\n• Tap notes / flip to edit &amp; check to return"
+                    android:text="• Double-tap card to complete\n• Swipe left or right to cycle stack\n• Tap notes / flip to edit &amp; check to return"
                     android:textColor="#A1A1AA"
                     android:textSize="11sp"
                     android:lineSpacingExtra="2dp" />
@@ -302,7 +414,7 @@
         android:paddingVertical="10dp"
         android:background="#0D0D0D">
 
-        <!-- Previous Card / Pull to Top -->
+        <!-- Previous Card / Pull to Top with left arrow -->
         <ImageView
             android:id="@+id/btnPrevCard"
             android:layout_width="38dp"
@@ -338,7 +450,7 @@
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Next Card / Send to Bottom -->
+        <!-- Next Card / Send to Bottom with right arrow -->
         <ImageView
             android:id="@+id/btnNextCard"
             android:layout_width="38dp"

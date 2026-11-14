@@ -6,7 +6,11 @@
         <item name="colorSecondary">#E5E5EA</item>
         <item name="colorSecondaryVariant">#1C1C1E</item>
         <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="android:statusBarColor">#0A0A0A</item>
+        
+        <!-- Fullscreen / Hide Status Bar -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">#0A0A0A</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>

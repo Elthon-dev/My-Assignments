@@ -1,5 +1,7 @@
 package com.nordic.myassignments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,12 +12,12 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
-import android.view.ViewConfiguration;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -33,6 +35,7 @@ import com.nordic.myassignments.model.SubTask;
 import com.nordic.myassignments.storage.AssignmentRepository;
 import com.nordic.myassignments.ui.AddEditAssignmentDialog;
 import com.nordic.myassignments.ui.AssignmentCardViewHolder;
+import com.nordic.myassignments.ui.InteractiveStackLayout;
 import com.nordic.myassignments.ui.ZenFocusDialog;
 
 import java.util.ArrayList;
@@ -48,49 +51,63 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
     private final List<Assignment> displayedAssignments = new ArrayList<>();
     private FilterMode currentFilter = FilterMode.ALL;
 
-    // Undo support
-    private Assignment lastCompletedAssignment = null;
-
-    // Layout views
-    private FrameLayout layoutCardStackContainer;
-    private FrameLayout containerCardTop;
-    private FrameLayout containerCardMiddle;
-    private FrameLayout containerCardBottom;
-
-    private AssignmentCardViewHolder holderTop;
-    private AssignmentCardViewHolder holderMiddle;
-    private AssignmentCardViewHolder holderBottom;
-
-    private LinearLayout layoutEmptyDeck;
-    private TextView tvEmptyTitle;
-    private TextView tvEmptySubtitle;
-    private TextView btnEmptyCreateCard;
+    // Top Bubble Card UI
+    private LinearLayout layoutTopBubbleCollapsed;
+    private LinearLayout btnOpenTopBubble;
+    private LinearLayout btnQuickAddNewCard;
+    private LinearLayout layoutTopPanelExpanded;
+    private ImageView btnCloseTopPanel;
     private LinearLayout btnAddNewAssignment;
-    private LinearLayout layoutBottomDeckControls;
-    private TextView tvCardDeckCounter;
-    private ImageView btnPrevCard;
-    private ImageView btnNextCard;
 
+    // Filter Chips
     private TextView chipFilterAll;
     private TextView chipFilterDueSoon;
     private TextView chipFilterActive;
     private TextView chipFilterPriority;
     private TextView chipFilterCompleted;
 
-    // Gesture & Stack physics
+    // Stack Views
+    private FrameLayout layoutCardStackContainer;
+    private FrameLayout containerCardBottom;
+    private FrameLayout containerCardMiddle;
+    private InteractiveStackLayout containerCardTop;
+
+    private AssignmentCardViewHolder holderTop;
+    private AssignmentCardViewHolder holderMiddle;
+    private AssignmentCardViewHolder holderBottom;
+
+    // Empty state & Bottom Controls
+    private LinearLayout layoutEmptyDeck;
+    private TextView tvEmptyTitle;
+    private TextView tvEmptySubtitle;
+    private TextView btnEmptyCreateCard;
+    private LinearLayout layoutBottomDeckControls;
+    private TextView tvCardDeckCounter;
+    private ImageView btnPrevCard;
+    private ImageView btnNextCard;
+
+    // Screen metrics & animation properties
     private int screenWidth;
     private int screenHeight;
     private float density;
-    private int touchSlop;
-    private GestureDetector gestureDetector;
-    private VelocityTracker velocityTracker;
-    private float downX;
-    private float downY;
-    private boolean isDraggingCard = false;
+
+    // Stack vertical offsets:
+    // Card 3 (Bottom behind): Y = 0dp
+    // Card 2 (Middle behind): Y = 18dp (so Card 3's top 18dp is visibly sticking out above!)
+    // Card 1 (Front active): Y = 36dp (so Card 2's top 18dp is visibly sticking out above!)
+    private float offsetBottomY;
+    private float offsetMiddleY;
+    private float offsetTopY;
+
+    private static final int ANIMATION_DURATION_MS = 360;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide Android status bar completely as requested
+        hideStatusBar();
+
         setContentView(R.layout.activity_main);
 
         repository = AssignmentRepository.getInstance(this);
@@ -99,32 +116,53 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
         density = dm.density;
-        touchSlop = ViewConfiguration.get(this).getScaledTouchSlop();
+
+        offsetBottomY = 0f;
+        offsetMiddleY = 18f * density;
+        offsetTopY = 36f * density;
 
         initViews();
-        setupGestureDetection();
+        setupTopBubblePanel();
+        setupStackGestureListener();
         setupFilters();
-        setupActions();
+        setupBottomActions();
 
         loadAssignments();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideStatusBar();
+    }
+
+    private void hideStatusBar() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsController controller = getWindow().getInsetsController();
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.statusBars());
+                controller.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            }
+        } else {
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
     private void initViews() {
-        layoutCardStackContainer = findViewById(R.id.layoutCardStackContainer);
-        containerCardTop = findViewById(R.id.containerCardTop);
-        containerCardMiddle = findViewById(R.id.containerCardMiddle);
-        containerCardBottom = findViewById(R.id.containerCardBottom);
-
-        layoutEmptyDeck = findViewById(R.id.layoutEmptyDeck);
-        tvEmptyTitle = findViewById(R.id.tvEmptyTitle);
-        tvEmptySubtitle = findViewById(R.id.tvEmptySubtitle);
-        btnEmptyCreateCard = findViewById(R.id.btnEmptyCreateCard);
-
+        layoutTopBubbleCollapsed = findViewById(R.id.layoutTopBubbleCollapsed);
+        btnOpenTopBubble = findViewById(R.id.btnOpenTopBubble);
+        btnQuickAddNewCard = findViewById(R.id.btnQuickAddNewCard);
+        layoutTopPanelExpanded = findViewById(R.id.layoutTopPanelExpanded);
+        btnCloseTopPanel = findViewById(R.id.btnCloseTopPanel);
         btnAddNewAssignment = findViewById(R.id.btnAddNewAssignment);
-        layoutBottomDeckControls = findViewById(R.id.layoutBottomDeckControls);
-        tvCardDeckCounter = findViewById(R.id.tvCardDeckCounter);
-        btnPrevCard = findViewById(R.id.btnPrevCard);
-        btnNextCard = findViewById(R.id.btnNextCard);
 
         chipFilterAll = findViewById(R.id.chipFilterAll);
         chipFilterDueSoon = findViewById(R.id.chipFilterDueSoon);
@@ -132,7 +170,22 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         chipFilterPriority = findViewById(R.id.chipFilterPriority);
         chipFilterCompleted = findViewById(R.id.chipFilterCompleted);
 
-        // Inflate the 3 card layer views
+        layoutCardStackContainer = findViewById(R.id.layoutCardStackContainer);
+        containerCardBottom = findViewById(R.id.containerCardBottom);
+        containerCardMiddle = findViewById(R.id.containerCardMiddle);
+        containerCardTop = findViewById(R.id.containerCardTop);
+
+        layoutEmptyDeck = findViewById(R.id.layoutEmptyDeck);
+        tvEmptyTitle = findViewById(R.id.tvEmptyTitle);
+        tvEmptySubtitle = findViewById(R.id.tvEmptySubtitle);
+        btnEmptyCreateCard = findViewById(R.id.btnEmptyCreateCard);
+
+        layoutBottomDeckControls = findViewById(R.id.layoutBottomDeckControls);
+        tvCardDeckCounter = findViewById(R.id.tvCardDeckCounter);
+        btnPrevCard = findViewById(R.id.btnPrevCard);
+        btnNextCard = findViewById(R.id.btnNextCard);
+
+        // Inflate the 3 card layer views inside the stack containers
         LayoutInflater inflater = LayoutInflater.from(this);
         View viewBottom = inflater.inflate(R.layout.item_assignment_card, containerCardBottom, false);
         containerCardBottom.addView(viewBottom);
@@ -147,188 +200,232 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         holderTop = new AssignmentCardViewHolder(viewTop);
     }
 
-    private void setupGestureDetection() {
-        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                if (displayedAssignments.isEmpty()) return false;
-                // Double tap marks as completed & auto-removes from active stack
-                triggerCompleteCurrentCard();
-                return true;
-            }
+    // ================= TOP BUBBLE CARD EXPAND / COLLAPSE =================
+
+    private void setupTopBubblePanel() {
+        // Clicking the compact bubble card on the left expands the full dashboard panel
+        btnOpenTopBubble.setOnClickListener(v -> {
+            vibrate(15);
+            layoutTopBubbleCollapsed.animate()
+                    .alpha(0f)
+                    .setDuration(160)
+                    .withEndAction(() -> {
+                        layoutTopBubbleCollapsed.setVisibility(View.GONE);
+                        layoutTopPanelExpanded.setVisibility(View.VISIBLE);
+                        layoutTopPanelExpanded.setAlpha(0f);
+                        layoutTopPanelExpanded.setTranslationY(-30f);
+                        layoutTopPanelExpanded.animate()
+                                .alpha(1f)
+                                .translationY(0f)
+                                .setDuration(240)
+                                .setInterpolator(new DecelerateInterpolator())
+                                .start();
+                    }).start();
         });
 
-        // Top card touch listener: handles drag left/right to cycle stack
-        containerCardTop.setOnTouchListener(new View.OnTouchListener() {
+        // Clicking the X button on the very right of the panel collapses back to the bubble card
+        btnCloseTopPanel.setOnClickListener(v -> {
+            vibrate(15);
+            layoutTopPanelExpanded.animate()
+                    .alpha(0f)
+                    .translationY(-30f)
+                    .setDuration(180)
+                    .withEndAction(() -> {
+                        layoutTopPanelExpanded.setVisibility(View.GONE);
+                        layoutTopBubbleCollapsed.setVisibility(View.VISIBLE);
+                        layoutTopBubbleCollapsed.setAlpha(0f);
+                        layoutTopBubbleCollapsed.animate()
+                                .alpha(1f)
+                                .setDuration(200)
+                                .start();
+                    }).start();
+        });
+
+        btnQuickAddNewCard.setOnClickListener(v -> openAddEditDialog(null));
+        btnAddNewAssignment.setOnClickListener(v -> openAddEditDialog(null));
+        btnEmptyCreateCard.setOnClickListener(v -> openAddEditDialog(null));
+    }
+
+    // ================= INTERACTIVE STACK GESTURE LISTENER =================
+
+    private void setupStackGestureListener() {
+        containerCardTop.setOnStackGestureListener(new InteractiveStackLayout.OnStackGestureListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (displayedAssignments.isEmpty()) return false;
+            public void onDoubleTapped() {
+                // Double tap marks as completed & auto-removes with animation!
+                triggerCompleteCurrentCard();
+            }
 
-                // Let gesture detector inspect for double-tap
-                gestureDetector.onTouchEvent(event);
+            @Override
+            public void onSwipedLeft() {
+                // Swiped Left: smooth fly-out to the left and cycle to bottom of stack!
+                animateCardSwipeCycle(false);
+            }
 
-                // If user flipped card to back, allow them to interact with notes & checklist freely
-                if (holderTop.isFlipped()) {
-                    return false;
-                }
+            @Override
+            public void onSwipedRight() {
+                // Swiped Right: smooth fly-out to the right and cycle to bottom of stack!
+                animateCardSwipeCycle(true);
+            }
 
-                if (velocityTracker == null) {
-                    velocityTracker = VelocityTracker.obtain();
-                }
-                velocityTracker.addMovement(event);
+            @Override
+            public void onDragProgress(float dx, float fraction) {
+                // Interactive real-time drag: top card follows finger with subtle rotation
+                containerCardTop.setTranslationX(dx);
+                containerCardTop.setRotation(dx * 0.032f);
 
-                int action = event.getActionMasked();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        downX = event.getRawX();
-                        downY = event.getRawY();
-                        isDraggingCard = false;
-                        break;
+                // Underlying cards scale and shift down naturally to reveal their stack depth
+                float scaleMid = 0.96f + fraction * 0.04f;
+                float transYMid = offsetMiddleY + fraction * (offsetTopY - offsetMiddleY);
+                float alphaMid = 0.82f + fraction * 0.18f;
+                containerCardMiddle.setScaleX(scaleMid);
+                containerCardMiddle.setScaleY(scaleMid);
+                containerCardMiddle.setTranslationY(transYMid);
+                containerCardMiddle.setAlpha(alphaMid);
 
-                    case MotionEvent.ACTION_MOVE:
-                        float dx = event.getRawX() - downX;
-                        float dy = event.getRawY() - downY;
+                float scaleBot = 0.92f + fraction * 0.04f;
+                float transYBot = offsetBottomY + fraction * (offsetMiddleY - offsetBottomY);
+                float alphaBot = 0.60f + fraction * 0.22f;
+                containerCardBottom.setScaleX(scaleBot);
+                containerCardBottom.setScaleY(scaleBot);
+                containerCardBottom.setTranslationY(transYBot);
+                containerCardBottom.setAlpha(alphaBot);
+            }
 
-                        if (!isDraggingCard) {
-                            if (Math.abs(dx) > touchSlop && Math.abs(dx) > Math.abs(dy) * 1.2f) {
-                                isDraggingCard = true;
-                                containerCardTop.getParent().requestDisallowInterceptTouchEvent(true);
-                            }
-                        }
+            @Override
+            public void onDragCanceled() {
+                // Settle smoothly back to stacked positions
+                containerCardTop.animate()
+                        .translationX(0f)
+                        .rotation(0f)
+                        .setDuration(260)
+                        .setInterpolator(new DecelerateInterpolator(1.4f))
+                        .start();
 
-                        if (isDraggingCard) {
-                            containerCardTop.setTranslationX(dx);
-                            containerCardTop.setRotation(dx * 0.032f);
+                containerCardMiddle.animate()
+                        .scaleX(0.96f).scaleY(0.96f)
+                        .translationY(offsetMiddleY)
+                        .alpha(0.82f)
+                        .setDuration(260)
+                        .setInterpolator(new DecelerateInterpolator(1.4f))
+                        .start();
 
-                            // Progressively scale middle and bottom cards
-                            float progress = Math.min(Math.abs(dx) / (screenWidth * 0.45f), 1f);
-
-                            float scaleMid = 0.94f + progress * 0.06f;
-                            float transYMid = (14f - progress * 14f) * density;
-                            float alphaMid = 0.75f + progress * 0.25f;
-                            containerCardMiddle.setScaleX(scaleMid);
-                            containerCardMiddle.setScaleY(scaleMid);
-                            containerCardMiddle.setTranslationY(transYMid);
-                            containerCardMiddle.setAlpha(alphaMid);
-
-                            float scaleBot = 0.88f + progress * 0.06f;
-                            float transYBot = (28f - progress * 14f) * density;
-                            float alphaBot = 0.45f + progress * 0.30f;
-                            containerCardBottom.setScaleX(scaleBot);
-                            containerCardBottom.setScaleY(scaleBot);
-                            containerCardBottom.setTranslationY(transYBot);
-                            containerCardBottom.setAlpha(alphaBot);
-
-                            return true;
-                        }
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        if (isDraggingCard) {
-                            isDraggingCard = false;
-                            velocityTracker.computeCurrentVelocity(1000);
-                            float velocityX = velocityTracker.getXVelocity();
-                            float finalDx = event.getRawX() - downX;
-
-                            boolean isFling = Math.abs(velocityX) > 900;
-                            boolean isPastThreshold = Math.abs(finalDx) > screenWidth * 0.28f;
-
-                            if ((isPastThreshold || isFling) && displayedAssignments.size() > 1) {
-                                // User swiped left OR right: Fly top card away and cycle to bottom of stack!
-                                float exitTargetX = (finalDx >= 0 ? 1 : -1) * (screenWidth + 250);
-                                animateCardSwipeCycle(exitTargetX);
-                            } else {
-                                // Settle back to center
-                                containerCardTop.animate()
-                                        .translationX(0f)
-                                        .rotation(0f)
-                                        .setDuration(180)
-                                        .setInterpolator(new DecelerateInterpolator())
-                                        .start();
-
-                                containerCardMiddle.animate()
-                                        .scaleX(0.94f).scaleY(0.94f)
-                                        .translationY(14 * density).alpha(0.75f)
-                                        .setDuration(180)
-                                        .start();
-
-                                containerCardBottom.animate()
-                                        .scaleX(0.88f).scaleY(0.88f)
-                                        .translationY(28 * density).alpha(0.45f)
-                                        .setDuration(180)
-                                        .start();
-                            }
-
-                            if (velocityTracker != null) {
-                                velocityTracker.recycle();
-                                velocityTracker = null;
-                            }
-                            return true;
-                        }
-
-                        if (velocityTracker != null) {
-                            velocityTracker.recycle();
-                            velocityTracker = null;
-                        }
-                        break;
-                }
-                return false;
+                containerCardBottom.animate()
+                        .scaleX(0.92f).scaleY(0.92f)
+                        .translationY(offsetBottomY)
+                        .alpha(0.60f)
+                        .setDuration(260)
+                        .setInterpolator(new DecelerateInterpolator(1.4f))
+                        .start();
             }
         });
     }
 
-    private void animateCardSwipeCycle(float exitX) {
+    private void animateCardSwipeCycle(final boolean swipeToRight) {
+        if (displayedAssignments.size() <= 1) {
+            // Only 1 card: bounce back smoothly
+            containerCardTop.animate()
+                    .translationX(0f)
+                    .rotation(0f)
+                    .setDuration(260)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+            return;
+        }
+
+        float exitX = (swipeToRight ? 1 : -1) * (screenWidth + 350);
+        float exitRot = (swipeToRight ? 1 : -1) * 16f;
+
+        // 1. Top card flies smoothly offscreen in chosen direction
         containerCardTop.animate()
                 .translationX(exitX)
-                .rotation(exitX * 0.032f)
+                .rotation(exitRot)
                 .alpha(0f)
-                .setDuration(220)
-                .setInterpolator(new AccelerateInterpolator())
+                .setDuration(ANIMATION_DURATION_MS)
+                .setInterpolator(new AccelerateInterpolator(1.2f))
                 .withEndAction(() -> {
-                    if (displayedAssignments.size() > 1) {
-                        Assignment swiped = displayedAssignments.remove(0);
-                        displayedAssignments.add(swiped); // Put to bottom of the stack!
-                    }
-                    vibrate(20);
+                    // Put top card to bottom of the stack!
+                    Assignment swiped = displayedAssignments.remove(0);
+                    displayedAssignments.add(swiped);
+
+                    vibrate(22);
                     resetCardTransforms();
                     renderStack();
                 }).start();
 
+        // 2. Middle card smoothly slides down to become active top card
         containerCardMiddle.animate()
                 .scaleX(1.0f).scaleY(1.0f)
-                .translationY(0f).alpha(1.0f)
-                .setDuration(220)
+                .translationY(offsetTopY)
+                .alpha(1.0f)
+                .setDuration(ANIMATION_DURATION_MS)
+                .setInterpolator(new DecelerateInterpolator(1.4f))
                 .start();
 
+        // 3. Bottom card smoothly slides down to become middle card
         containerCardBottom.animate()
-                .scaleX(0.94f).scaleY(0.94f)
-                .translationY(14 * density).alpha(0.75f)
-                .setDuration(220)
+                .scaleX(0.96f).scaleY(0.96f)
+                .translationY(offsetMiddleY)
+                .alpha(0.82f)
+                .setDuration(ANIMATION_DURATION_MS)
+                .setInterpolator(new DecelerateInterpolator(1.4f))
                 .start();
     }
 
     private void resetCardTransforms() {
         containerCardTop.setTranslationX(0f);
-        containerCardTop.setTranslationY(0f);
+        containerCardTop.setTranslationY(offsetTopY);
         containerCardTop.setRotation(0f);
         containerCardTop.setScaleX(1.0f);
         containerCardTop.setScaleY(1.0f);
         containerCardTop.setAlpha(1.0f);
 
-        containerCardMiddle.setScaleX(0.94f);
-        containerCardMiddle.setScaleY(0.94f);
-        containerCardMiddle.setTranslationY(14 * density);
         containerCardMiddle.setTranslationX(0f);
+        containerCardMiddle.setTranslationY(offsetMiddleY);
         containerCardMiddle.setRotation(0f);
-        containerCardMiddle.setAlpha(0.75f);
+        containerCardMiddle.setScaleX(0.96f);
+        containerCardMiddle.setScaleY(0.96f);
+        containerCardMiddle.setAlpha(0.82f);
 
-        containerCardBottom.setScaleX(0.88f);
-        containerCardBottom.setScaleY(0.88f);
-        containerCardBottom.setTranslationY(28 * density);
         containerCardBottom.setTranslationX(0f);
+        containerCardBottom.setTranslationY(offsetBottomY);
         containerCardBottom.setRotation(0f);
-        containerCardBottom.setAlpha(0.45f);
+        containerCardBottom.setScaleX(0.92f);
+        containerCardBottom.setScaleY(0.92f);
+        containerCardBottom.setAlpha(0.60f);
+    }
+
+    private void setupBottomActions() {
+        // Right arrow button: performs smooth right swipe cycle to bottom
+        btnNextCard.setOnClickListener(v -> {
+            if (displayedAssignments.size() > 1) {
+                animateCardSwipeCycle(true);
+            }
+        });
+
+        // Left arrow button: pulls the bottom card to the top with a smooth left entrance animation
+        btnPrevCard.setOnClickListener(v -> {
+            if (displayedAssignments.size() > 1) {
+                Assignment bottom = displayedAssignments.remove(displayedAssignments.size() - 1);
+                displayedAssignments.add(0, bottom); // Pull to top!
+                vibrate(22);
+
+                // Prepare smooth entrance from left
+                containerCardTop.setTranslationX(-(screenWidth + 250));
+                containerCardTop.setTranslationY(offsetTopY);
+                containerCardTop.setRotation(-15f);
+                containerCardTop.setAlpha(0f);
+                renderStack();
+
+                containerCardTop.animate()
+                        .translationX(0f)
+                        .rotation(0f)
+                        .alpha(1f)
+                        .setDuration(ANIMATION_DURATION_MS)
+                        .setInterpolator(new DecelerateInterpolator(1.4f))
+                        .start();
+            }
+        });
     }
 
     private void setupFilters() {
@@ -363,41 +460,6 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         }
     }
 
-    private void setupActions() {
-        btnAddNewAssignment.setOnClickListener(v -> openAddEditDialog(null));
-        btnEmptyCreateCard.setOnClickListener(v -> openAddEditDialog(null));
-
-        // Programmatic Next (Cycle top to bottom)
-        btnNextCard.setOnClickListener(v -> {
-            if (displayedAssignments.size() > 1) {
-                animateCardSwipeCycle(screenWidth + 250);
-            }
-        });
-
-        // Programmatic Prev (Pull bottom card to top with entrance)
-        btnPrevCard.setOnClickListener(v -> {
-            if (displayedAssignments.size() > 1) {
-                Assignment bottom = displayedAssignments.remove(displayedAssignments.size() - 1);
-                displayedAssignments.add(0, bottom); // Pull to top!
-                vibrate(20);
-
-                // Slide in from left
-                containerCardTop.setTranslationX(-(screenWidth + 200));
-                containerCardTop.setRotation(-12f);
-                containerCardTop.setAlpha(0f);
-                renderStack();
-
-                containerCardTop.animate()
-                        .translationX(0f)
-                        .rotation(0f)
-                        .alpha(1f)
-                        .setDuration(220)
-                        .setInterpolator(new DecelerateInterpolator())
-                        .start();
-            }
-        });
-    }
-
     private void loadAssignments() {
         List<Assignment> all = repository.getAll();
         displayedAssignments.clear();
@@ -405,7 +467,6 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         for (Assignment a : all) {
             switch (currentFilter) {
                 case ALL:
-                    // Active cards are shown in the primary stack; completed cards are stored in COMPLETED filter
                     if (!a.isCompleted()) displayedAssignments.add(a);
                     break;
                 case DUE_SOON:
@@ -456,20 +517,43 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
             containerCardBottom.setVisibility(View.GONE);
             containerCardMiddle.setVisibility(View.GONE);
             containerCardTop.setVisibility(View.VISIBLE);
+            containerCardTop.setTranslationY(offsetTopY);
             holderTop.bind(displayedAssignments.get(0), true, this);
         } else if (total == 2) {
             containerCardBottom.setVisibility(View.GONE);
+            // Middle card peeking out from above:
             containerCardMiddle.setVisibility(View.VISIBLE);
-            containerCardTop.setVisibility(View.VISIBLE);
-            holderTop.bind(displayedAssignments.get(0), true, this);
+            containerCardMiddle.setTranslationY(offsetMiddleY);
+            containerCardMiddle.setScaleX(0.96f);
+            containerCardMiddle.setScaleY(0.96f);
+            containerCardMiddle.setAlpha(0.82f);
             holderMiddle.bind(displayedAssignments.get(1), false, null);
+
+            // Top active card:
+            containerCardTop.setVisibility(View.VISIBLE);
+            containerCardTop.setTranslationY(offsetTopY);
+            holderTop.bind(displayedAssignments.get(0), true, this);
         } else {
+            // Card 3: Top bit showing at Y = 0dp:
             containerCardBottom.setVisibility(View.VISIBLE);
-            containerCardMiddle.setVisibility(View.VISIBLE);
-            containerCardTop.setVisibility(View.VISIBLE);
-            holderTop.bind(displayedAssignments.get(0), true, this);
-            holderMiddle.bind(displayedAssignments.get(1), false, null);
+            containerCardBottom.setTranslationY(offsetBottomY);
+            containerCardBottom.setScaleX(0.92f);
+            containerCardBottom.setScaleY(0.92f);
+            containerCardBottom.setAlpha(0.60f);
             holderBottom.bind(displayedAssignments.get(2), false, null);
+
+            // Card 2: Top bit showing at Y = 18dp:
+            containerCardMiddle.setVisibility(View.VISIBLE);
+            containerCardMiddle.setTranslationY(offsetMiddleY);
+            containerCardMiddle.setScaleX(0.96f);
+            containerCardMiddle.setScaleY(0.96f);
+            containerCardMiddle.setAlpha(0.82f);
+            holderMiddle.bind(displayedAssignments.get(1), false, null);
+
+            // Card 1: Active front card at Y = 36dp:
+            containerCardTop.setVisibility(View.VISIBLE);
+            containerCardTop.setTranslationY(offsetTopY);
+            holderTop.bind(displayedAssignments.get(0), true, this);
         }
 
         updateCounter();
@@ -500,30 +584,29 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
         if (displayedAssignments.isEmpty()) return;
         final Assignment target = displayedAssignments.get(0);
 
-        // 1. Play checkmark burst animation overlay
+        // 1. Play checkmark pulse burst
         holderTop.showCompletionAnimation(() -> {
-            // 2. Animate card floating upward and fading away
+            // 2. Animate card floating gracefully upward with fade
             containerCardTop.animate()
                     .translationY(-screenHeight * 0.45f)
                     .alpha(0f)
                     .scaleX(0.92f)
                     .scaleY(0.92f)
-                    .setDuration(240)
-                    .setInterpolator(new AccelerateInterpolator())
+                    .setDuration(ANIMATION_DURATION_MS)
+                    .setInterpolator(new AccelerateInterpolator(1.2f))
                     .withEndAction(() -> {
                         // 3. Mark completed in persistent storage
                         repository.markCompleted(target.getId());
-                        lastCompletedAssignment = target;
 
-                        // 4. Auto-remove from current active stack!
+                        // 4. Auto-remove from active stack
                         if (!displayedAssignments.isEmpty()) {
                             displayedAssignments.remove(0);
                         }
 
-                        // 5. Re-render stack smoothly
+                        // 5. Re-render stack
                         renderStack();
 
-                        // 6. Provide subtle undo snackbar
+                        // 6. Subtle Undo snackbar
                         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
                                 "✓ Marked '" + target.getTitle() + "' completed", Snackbar.LENGTH_LONG);
                         snackbar.setAction("UNDO", v -> {
@@ -540,11 +623,13 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
                         snackbar.show();
                     }).start();
 
-            // Simultaneously animate middle card smoothly up to top position
+            // Simultaneously animate middle card smoothly into front active position
             containerCardMiddle.animate()
                     .scaleX(1.0f).scaleY(1.0f)
-                    .translationY(0f).alpha(1.0f)
-                    .setDuration(240)
+                    .translationY(offsetTopY)
+                    .alpha(1.0f)
+                    .setDuration(ANIMATION_DURATION_MS)
+                    .setInterpolator(new DecelerateInterpolator(1.4f))
                     .start();
         });
     }
@@ -552,7 +637,6 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
     private void openAddEditDialog(Assignment assignment) {
         AddEditAssignmentDialog dialog = new AddEditAssignmentDialog(this, assignment, (saved, isNew) -> {
             if (isNew) {
-                // New card is placed right on top of the stack!
                 displayedAssignments.add(0, saved);
                 renderStack();
             } else {
@@ -635,13 +719,11 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
     @Override
     public void onToggleCompleted(Assignment assignment) {
         if (assignment.isCompleted()) {
-            // Restore to in progress
             assignment.setStatus("IN_PROGRESS");
             repository.update(assignment);
             loadAssignments();
             Toast.makeText(this, "Restored to In Progress", Toast.LENGTH_SHORT).show();
         } else {
-            // Complete & auto remove
             triggerCompleteCurrentCard();
         }
     }
@@ -649,9 +731,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentCardVie
     @Override
     public void onSubTaskToggle(Assignment assignment, SubTask subTask) {
         repository.toggleSubTask(assignment.getId(), subTask.getId());
-        // Re-check progress and re-bind without reloading full stack
         if (assignment.getTotalTasksCount() > 0 && assignment.getCompletedTasksCount() == assignment.getTotalTasksCount()) {
-            // All tasks complete! Trigger completion
             triggerCompleteCurrentCard();
         } else {
             holderTop.bind(assignment, true, this);
